@@ -4,6 +4,7 @@
  */
 
 import * as express from 'express';
+import "react-dnd"
 
 const app = express();
 
