@@ -1,0 +1,60 @@
+{
+  "name": "esm-import-crash",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/esm-import-crash/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/esm-import-crash",
+        "main": "apps/esm-import-crash/src/main.ts",
+        "tsConfig": "apps/esm-import-crash/tsconfig.app.json",
+        "assets": ["apps/esm-import-crash/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/esm-import-crash/src/environments/environment.ts",
+              "with": "apps/esm-import-crash/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "esm-import-crash:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "esm-import-crash:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/esm-import-crash/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/esm-import-crash"],
+      "options": {
+        "jestConfig": "apps/esm-import-crash/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
